@@ -5,29 +5,33 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-
-import javax.ws.rs.core.Response.Status;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.lang3.StringUtils;
-
-import uk.co.inc.argon.commons.exceptions.HttpException;
-
+ 
+/**
+ *
+ * @author Johan Prins
+ *
+ */
 public class DateUtil {
-    private static final String DATE_FORMAT = "dd-MMM-yyy";
-    public static final String ADD_CLAIM_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
-    private DateFormat dateFormat;
+	private DateFormat dateFormat;
 	private DateFormat miliDateFormat;
 	private DateFormat simpleDateFormat;
 	private DateFormat displayDateFormat;
 	private DateFormat nonStandardDisplayDateFormat;
 	
+	public static void main(String[] args) {
+		String d="2021-12-09T01:46:49+0200";
+		try {
+			System.out.println(new DateUtil().parseDate(d));
+		}
+		catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	public DateUtil() {
 		dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 		miliDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -139,103 +143,22 @@ public class DateUtil {
 		}
 		return "";
 	}
-
-    public static XMLGregorianCalendar getDate(Date date) throws HttpException {
+    
+	
+	/**
+	 * Takes a String, or null, and return a SQL timestamp
+	 * @param date
+	 * @return SQL Timestamp
+	 * @throws ParseException
+	 */
+    public Timestamp getTimestamp(String date) throws ParseException {
+        Date formatedDate = null;
         
-        try {
-            GregorianCalendar cal = new GregorianCalendar();
-            cal.setTime(date);
-         
-            XMLGregorianCalendar xgc = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal);
-            xgc.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
-            
-            return xgc;
-         } catch (DatatypeConfigurationException e) {
-             e.printStackTrace();
-             throw new HttpException(e.getMessage(),Status.INTERNAL_SERVER_ERROR.getStatusCode());
-         }
-    }
-
-    public static XMLGregorianCalendar getDateTime() throws HttpException {
+        if(StringUtils.isNotBlank(date))
+            formatedDate = dateFormat.parse(date);
+        else
+            formatedDate = new Date();
         
-        try {
-            GregorianCalendar cal = new GregorianCalendar();
-            cal.setTime(new Date());
-         
-            XMLGregorianCalendar xgc = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal);
-            xgc.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
-            
-            return xgc;
-         } catch (DatatypeConfigurationException e) {
-             e.printStackTrace();
-             throw new HttpException(e.getMessage(),Status.INTERNAL_SERVER_ERROR.getStatusCode());
-         }
+        return new Timestamp(formatedDate.getTime());
     }
-    
-    public static XMLGregorianCalendar addTimetoDate(XMLGregorianCalendar date) throws HttpException {
-        try {
-            Date formatedDate = null;
-            String time = "T12:00:00";
-            String dateTime = date.toString() + time;
-            DateFormat df = new SimpleDateFormat(ADD_CLAIM_DATE_FORMAT);
-            
-            formatedDate = df.parse(dateTime);
-            
-            GregorianCalendar cal = new GregorianCalendar();
-            cal.setTime(formatedDate);
-         
-            XMLGregorianCalendar xgc = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal);
-            return xgc;
-        } catch (ParseException | DatatypeConfigurationException e) {
-            e.printStackTrace();
-            throw new HttpException(e.getMessage(),Status.INTERNAL_SERVER_ERROR.getStatusCode());
-        }
-    }
-    
-    public static XMLGregorianCalendar setDate(String date) throws HttpException {
-        
-        try {
-            Date formatedDate = null;
-            DateFormat df = new SimpleDateFormat(DATE_FORMAT);
-            
-            if(StringUtils.isNotBlank(date))
-                formatedDate = df.parse(date);
-            else
-                formatedDate = new Date();
-            
-            GregorianCalendar cal = new GregorianCalendar();
-            cal.setTime(formatedDate);
-         
-            XMLGregorianCalendar xgc = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(cal.get(Calendar.YEAR),
-              cal.get(Calendar.MONTH)+1,cal.get(Calendar.DAY_OF_MONTH),DatatypeConstants.FIELD_UNDEFINED);
-            return xgc;
-        } catch (ParseException | DatatypeConfigurationException e) {
-            e.printStackTrace();
-            throw new HttpException(e.getMessage(),Status.INTERNAL_SERVER_ERROR.getStatusCode());
-        }
-    }
-    
-    public static XMLGregorianCalendar setDateTime(String date) throws HttpException {
-        
-        try {
-            Date formatedDate = null;
-            DateFormat df = new SimpleDateFormat(ADD_CLAIM_DATE_FORMAT);
-            
-            if(StringUtils.isNotBlank(date))
-                formatedDate = df.parse(date);
-            else
-                formatedDate = new Date();
-            
-            GregorianCalendar cal = new GregorianCalendar();
-            cal.setTime(formatedDate);
-         
-            XMLGregorianCalendar xgc = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal);
-            return xgc;
-        } catch (ParseException | DatatypeConfigurationException e) {
-            e.printStackTrace();
-            throw new HttpException(e.getMessage(),Status.INTERNAL_SERVER_ERROR.getStatusCode());
-        }
-    }
-    
-    
 }

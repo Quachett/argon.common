@@ -16,8 +16,8 @@ public class SynapseConstants {
     public static final String PIPE = "||";
     public static final String DATE_FORMAT = "dd-MMM-yyy";
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
-	public static final CharSequence TIA_Y = "Y";
-	public static final CharSequence TIA_N = "N";
+	public static final String TIA_Y = "Y";
+	public static final String TIA_N = "N";
     /*public static final String OFFSET = "";
     
     public static final String OFFSET = "";

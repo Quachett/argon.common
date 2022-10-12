@@ -1,4 +1,4 @@
-package za.co.ominsure.synapse.common.encryption;
+package uk.co.inc.argon.commons.encryption;
 
 import java.security.spec.KeySpec;
 import java.util.logging.Level;
@@ -11,17 +11,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
-import za.co.ominsure.synapse.common.constants.SynapseConstants;
+import uk.co.inc.argon.commons.util.SynapseConstants;
 
-/**
- * This is a Singleton that manages the Encryption and Decryption of (for now)
- * the tokens when a service call is rerouted to another Synapse service
- * internally via the @ServiceBridge. When called the encrypt() an decrypt()
- * functions are 'synchronized' so that it may be reentrant - just in case!
- * 
- * @author rrooplah
- *
- */
 public class EncryptionUtil {
 	protected static java.util.logging.Logger logger = java.util.logging.Logger.getLogger("za.co.ominsure.synapse.common.encryption.EncryptionUtil");
 	private SecretKeySpec secretKeySpec;

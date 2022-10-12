@@ -4,6 +4,7 @@ uk\co\inc\argon\commons\exceptions\ErrorResponse.class
 uk\co\inc\argon\commons\util\CommonsUtil.class
 uk\co\inc\argon\commons\util\DateUtil.class
 uk\co\inc\argon\commons\exceptions\HttpException.class
+uk\co\inc\argon\commons\encryption\EncryptionUtil.class
 META-INF\panache-archive.marker
 uk\co\inc\argon\commons\exceptions\InterceptorException.class
 uk\co\inc\argon\commons\exceptions\package-info.class

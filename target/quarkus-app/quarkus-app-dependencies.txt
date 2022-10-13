@@ -1,6 +1,7 @@
 antlr:antlr::jar:2.7.7
 co.elastic.logging:ecs-logging-core::jar:1.2.0
 co.elastic.logging:log4j2-ecs-layout::jar:1.2.0
+com.aspose:aspose-words::jar:22.9
 com.carrotsearch:hppc::jar:0.8.1
 com.fasterxml.jackson.core:jackson-annotations::jar:2.13.2
 com.fasterxml.jackson.core:jackson-core::jar:2.13.2

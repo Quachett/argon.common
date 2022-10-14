@@ -222,6 +222,11 @@
 			<artifactId>aspose-words</artifactId>
 			<version>22.9</version>
 		</dependency>
+		<dependency>
+			<groupId>com.aspose</groupId>
+			<artifactId>aspose-cells</artifactId>
+			<version>22.10</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
